@@ -8,7 +8,6 @@ const resetBtn = document.getElementById("reset-btn");
 const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
 let etchContainer = document.querySelector(".etch-container");
-console.log(sizeSlider);
 let currentColor = colorSelector.value;
 let size = sizeSlider.value;
 sizeText.innerText = size;
