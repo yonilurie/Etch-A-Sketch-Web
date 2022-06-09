@@ -4,18 +4,43 @@ window.onload = () => {
 };
 
 const colorSelector = document.querySelector("input");
+const eraser = document.getElementById("eraser-btn");
 const resetBtn = document.getElementById("reset-btn");
 const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
+//Keeps track of whether or not eraser is on
+let eraserToggle = false;
 let etchContainer = document.querySelector(".etch-container");
 let currentColor = colorSelector.value;
 let size = sizeSlider.value;
 sizeText.innerText = size;
 
 //changes current color whenever the colorpicker value is changed
+//also checks if erases was on while color was changes, in which case the eraser is turned off.
 colorSelector.addEventListener("change", (event) => {
 	currentColor = event.target.value;
+	if (eraserToggle) {
+		eraserToggleOff();
+	}
 });
+
+// adds initial event listener to eraser
+eraser.addEventListener("click", eraserToggleOn);
+
+//Turns on eraser
+function eraserToggleOn() {
+	currentColor = "#FFFFFF";
+	eraser.addEventListener("click", eraserToggleOff);
+	eraser.removeEventListener("click", eraserToggleOn);
+	eraserToggle = true;
+}
+//turns off eraser
+function eraserToggleOff() {
+	currentColor = colorSelector.value;
+	eraser.addEventListener("click", eraserToggleOn);
+	eraser.removeEventListener("click", eraserToggleOff);
+	eraserToggle = false;
+}
 
 //Adds event listener to reset btn
 resetBtn.addEventListener("click", resetGrid);
@@ -27,9 +52,10 @@ sizeSlider.addEventListener("change", (event) => {
 	resetGrid();
 });
 
-sizeSlider.addEventListener("input", (event) => {
-	sizeText.innerText = event.target.value;
-});
+//Changes innertext of span next to size slider to indicate size
+// sizeSlider.addEventListener("input", (event) => {
+// 	sizeText.innerText = event.target.value;
+// });
 
 // callback for event listener that sets background color of cells
 function activate(event) {
@@ -55,10 +81,15 @@ function etchContainerDimensions() {
 
 //deletes old grid and create new one
 function resetGrid() {
+	if (eraserToggle) {
+		eraserToggleOff();
+	}
 	etchContainer.remove();
 	let newGridContainer = document.createElement("div");
 	newGridContainer.setAttribute("class", "etch-container");
-	document.querySelector(".main-container").appendChild(newGridContainer);
+	document
+		.querySelector(".etch-flex-container")
+		.appendChild(newGridContainer);
 	etchContainer = document.querySelector(".etch-container");
 	createGrid();
 }

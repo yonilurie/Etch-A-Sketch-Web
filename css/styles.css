@@ -9,7 +9,7 @@ h1 {
 	text-align: center;
 }
 
-.all {
+.main-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -21,16 +21,12 @@ h1 {
 	display: grid;
 	height: 1000px;
 	width: 1000px;
-	/* margin-right: 50px; */
 	cursor: crosshair;
-	/* transition: ease all .1s; */
 }
 
 .cell {
 	background-color: white;
-}
-
-.color-input {
+	transition: ease-in background-color 50ms;
 }
 
 .option {
@@ -52,7 +48,8 @@ h1 {
 	align-items: center;
 }
 
-#reset-btn {
+#reset-btn,
+#eraser-btn {
 	width: max-content;
 	height: 40px;
 	font-size: larger;
@@ -94,6 +91,7 @@ input[type="range"] {
 	background-color: gray;
 	height: 10px;
 	cursor: pointer;
+	border-radius: 4px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -107,7 +105,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 input[type="range"]::-webkit-slider-thumb:active {
-	height: 30px;
+	height: 25px;
 }
 
 @media screen and (max-width: 1600px) {
