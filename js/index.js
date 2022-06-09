@@ -4,21 +4,25 @@ window.onload = () => {
 };
 
 const colorSelector = document.querySelector("input");
-const etchContainer = document.querySelector(".etch-container");
+let etchContainer = document.querySelector(".etch-container");
+const resetBtn = document.getElementById("reset-btn");
 let currentColor = colorSelector.value;
 let size = 10;
 
 //changes current color whenever the colorpicker value is changed
 colorSelector.addEventListener("change", (event) => {
 	currentColor = event.target.value;
-	console.log(currentColor);
 });
 
+//Adds event listener to reset btn
+resetBtn.addEventListener("click", resetGrid);
+
 // callback for event listener that sets background color of cells
-function activated(event) {
+function activate(event) {
 	event.target.style.backgroundColor = currentColor;
 }
 
+//generates grid with dimensions of size by size, and appends to etch-container
 function createGrid() {
 	for (let i = 0; i < size * size; i++) {
 		const cell = document.createElement("div");
@@ -32,5 +36,15 @@ function createGrid() {
 function etchContainerDimensions() {
 	etchContainer.style.gridTemplateRow = `repeat(${size}, 1fr)`;
 	etchContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-	etchContainer.addEventListener("mouseover", activated);
+	etchContainer.addEventListener("mouseover", activate);
+}
+
+//deletes old grid and create new one
+function resetGrid() {
+	etchContainer.remove();
+	let newGridContainer = document.createElement("div");
+	newGridContainer.setAttribute("class", "etch-container");
+    document.querySelector(".main-container").appendChild(newGridContainer);
+    etchContainer = document.querySelector(".etch-container");
+    createGrid()
 }
