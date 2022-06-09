@@ -32,6 +32,7 @@ function eraserToggleOn() {
 	currentColor = "#FFFFFF";
 	eraser.addEventListener("click", eraserToggleOff);
 	eraser.removeEventListener("click", eraserToggleOn);
+	eraser.style.backgroundColor = "pink"
 	eraserToggle = true;
 }
 //turns off eraser
@@ -39,6 +40,7 @@ function eraserToggleOff() {
 	currentColor = colorSelector.value;
 	eraser.addEventListener("click", eraserToggleOn);
 	eraser.removeEventListener("click", eraserToggleOff);
+	eraser.style.backgroundColor = "buttonface"
 	eraserToggle = false;
 }
 

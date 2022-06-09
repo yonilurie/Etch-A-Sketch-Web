@@ -1,12 +1,28 @@
-body {
-	background-color: rgb(205, 195, 215);
+* {
 	font-family: "Plus Jakarta Sans", sans-serif;
 	font-family: "Roboto Mono", monospace;
+}
+
+body {
+	background-color: rgb(205, 195, 215);
 }
 
 h1 {
 	font-size: 5em;
 	text-align: center;
+}
+
+button {
+	transition: ease-in-out background-color 50ms;
+	border: solid 1px black;
+}
+
+button:hover {
+	background-color: #e3e3e3;
+}
+
+button:active {
+	background-color: #d5d5d5;
 }
 
 .main-container {
@@ -38,13 +54,16 @@ h1 {
 	margin-left: 0px;
 }
 
+.option.active {
+}
+
 .options-container {
 	display: flex;
 	width: fit-content;
 	flex-direction: column;
 	margin: auto;
 	box-sizing: border-box;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 }
 
@@ -118,17 +137,26 @@ input[type="range"]::-webkit-slider-thumb:active {
 	}
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 1050px) {
 	h1 {
 		font-size: 40px;
 	}
 
-	.all {
+	.main-container {
 		flex-direction: column;
 	}
+	.option {
+		padding: 10px;
+	}
+}
 
+@media screen and (max-width: 800px) {
 	.etch-container {
 		width: 450px;
 		height: 450px;
+	}
+
+	.option {
+		padding: 5px;
 	}
 }
