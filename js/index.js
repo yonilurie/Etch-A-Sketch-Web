@@ -4,12 +4,14 @@ window.onload = () => {
 };
 
 const colorSelector = document.querySelector("input");
-let etchContainer = document.querySelector(".etch-container");
 const resetBtn = document.getElementById("reset-btn");
-const sizeSlider = document.getElementById("size-slider")
-console.log(sizeSlider)
+const sizeSlider = document.getElementById("size-slider");
+const sizeText = document.getElementById("size-text");
+let etchContainer = document.querySelector(".etch-container");
+console.log(sizeSlider);
 let currentColor = colorSelector.value;
 let size = sizeSlider.value;
+sizeText.innerText = size;
 
 //changes current color whenever the colorpicker value is changed
 colorSelector.addEventListener("change", (event) => {
@@ -22,9 +24,13 @@ resetBtn.addEventListener("click", resetGrid);
 //adds event listener to the size slider
 //when its value is changed, a new grid is generated
 sizeSlider.addEventListener("change", (event) => {
-    size = event.target.value
-    resetGrid()
-})
+	size = event.target.value;
+	resetGrid();
+});
+
+sizeSlider.addEventListener("input", (event) => {
+	sizeText.innerText = event.target.value;
+});
 
 // callback for event listener that sets background color of cells
 function activate(event) {
@@ -53,7 +59,7 @@ function resetGrid() {
 	etchContainer.remove();
 	let newGridContainer = document.createElement("div");
 	newGridContainer.setAttribute("class", "etch-container");
-    document.querySelector(".main-container").appendChild(newGridContainer);
-    etchContainer = document.querySelector(".etch-container");
-    createGrid()
+	document.querySelector(".main-container").appendChild(newGridContainer);
+	etchContainer = document.querySelector(".etch-container");
+	createGrid();
 }
