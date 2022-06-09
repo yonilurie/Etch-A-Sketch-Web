@@ -6,8 +6,10 @@ window.onload = () => {
 const colorSelector = document.querySelector("input");
 let etchContainer = document.querySelector(".etch-container");
 const resetBtn = document.getElementById("reset-btn");
+const sizeSlider = document.getElementById("size-slider")
+console.log(sizeSlider)
 let currentColor = colorSelector.value;
-let size = 10;
+let size = sizeSlider.value;
 
 //changes current color whenever the colorpicker value is changed
 colorSelector.addEventListener("change", (event) => {
