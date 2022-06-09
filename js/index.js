@@ -4,14 +4,14 @@ window.onload = () => {
 };
 
 const colorSelector = document.querySelector("input");
-const eraser = document.getElementById("eraser-btn");
+const eraserBtn = document.getElementById("eraser-btn");
 const resetBtn = document.getElementById("reset-btn");
 const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
 const rainbowBtn = document.getElementById("rainbow-btn");
 //Keeps track of whether or not eraser is on
 let rainbowGotToggled = false;
-let eraserToggle = false;
+let eraser = false;
 let rainbow = false;
 let etchContainer = document.querySelector(".etch-container");
 let currentColor = colorSelector.value;
@@ -22,7 +22,7 @@ sizeText.innerText = size;
 //also checks if erases was on while color was changes, in which case the eraser is turned off.
 colorSelector.addEventListener("change", (event) => {
 	currentColor = event.target.value;
-	if (eraserToggle) {
+	if (eraser) {
 		eraserToggler();
 	}
 	if (rainbow) {
@@ -31,38 +31,7 @@ colorSelector.addEventListener("change", (event) => {
 });
 
 // adds initial event listener to eraser
-eraser.addEventListener("click", eraserToggler);
-
-//Turns on eraser
-function eraserToggler() {
-	if (rainbow) {
-		toggleRainbow();
-		rainbowGotToggled = true;
-		rainbowBtn.style.backgroundImage =
-			"linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)";
-	}
-	//turns eraser on
-	if (!eraserToggle) {
-		currentColor = "#FFFFFF";
-		eraser.setAttribute("class", "active-btn");
-		eraserToggle = true;
-		//turns eraser off
-	} else if (eraserToggle) {
-		currentColor = colorSelector.value;
-		eraser.removeAttribute("class", "active-btn");
-		eraserToggle = false;
-		if (rainbowGotToggled) {
-			toggleRainbow();
-			rainbowGotToggled = false;
-		}
-	}
-	console.log({
-		from: "eraser toggler",
-		eraserToggle: `${eraserToggle}`,
-		rainbow: `${rainbow}`,
-		rainbowGotToggled: `${rainbowGotToggled}`,
-	});
-}
+eraserBtn.addEventListener("click", eraserToggler);
 
 rainbowBtn.addEventListener("click", toggleRainbow);
 
@@ -90,8 +59,43 @@ function activateRainbow(event) {
 	event.target.style.backgroundColor = generateRGB();
 }
 
+//Turns on eraser
+function eraserToggler() {
+	if (rainbow) {
+		toggleRainbow();
+		rainbowGotToggled = true;
+		rainbowBtn.style.backgroundImage =
+			"linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)";
+	}
+	//turns eraser on
+	if (!eraser) {
+		currentColor = "#FFFFFF";
+		eraserBtn.setAttribute("class", "active-btn");
+		eraser = true;
+		//turns eraser off
+	} else if (eraser) {
+		currentColor = colorSelector.value;
+		eraserBtn.removeAttribute("class", "active-btn");
+
+		//MOVING LINE 81 UNDER lINE 85 CAUSES BUG WHEN CLICKING RAINBOW ERASER RAINBOW
+		//RAINBOW REM
+
+		if (rainbowGotToggled) {
+			toggleRainbow();
+			rainbowGotToggled = false;
+		}
+		eraser = false;
+	}
+	console.log({
+		from: "eraser toggler",
+		eraserToggle: `${eraser}`,
+		rainbow: `${rainbow}`,
+		rainbowGotToggled: `${rainbowGotToggled}`,
+	});
+}
+
 function toggleRainbow() {
-	if (eraserToggle) {
+	if (eraser) {
 		eraserToggler();
 	}
 	if (rainbow) {
@@ -107,10 +111,9 @@ function toggleRainbow() {
 			"linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)";
 		rainbow = true;
 	}
-
 	console.log({
 		from: "rainbow toggler",
-		eraserToggle: `${eraserToggle}`,
+		eraserToggle: `${eraser}`,
 		rainbow: `${rainbow}`,
 		rainbowGotToggled: `${rainbowGotToggled}`,
 	});
@@ -148,7 +151,7 @@ function generateRGB() {
 
 //deletes old grid and create new one
 function resetGrid() {
-	if (eraserToggle) {
+	if (eraser) {
 		eraserToggler();
 	}
 	etchContainer.remove();
@@ -160,3 +163,10 @@ function resetGrid() {
 	etchContainer = document.querySelector(".etch-container");
 	createGrid();
 }
+// Debugging code
+// console.log({
+// 	from: "eraser toggler",
+// 	eraserToggle: `${eraser}`,
+// 	rainbow: `${rainbow}`,
+// 	rainbowGotToggled: `${rainbowGotToggled}`,
+// });
