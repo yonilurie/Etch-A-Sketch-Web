@@ -19,6 +19,13 @@ colorSelector.addEventListener("change", (event) => {
 //Adds event listener to reset btn
 resetBtn.addEventListener("click", resetGrid);
 
+//adds event listener to the size slider
+//when its value is changed, a new grid is generated
+sizeSlider.addEventListener("change", (event) => {
+    size = event.target.value
+    resetGrid()
+})
+
 // callback for event listener that sets background color of cells
 function activate(event) {
 	event.target.style.backgroundColor = currentColor;
