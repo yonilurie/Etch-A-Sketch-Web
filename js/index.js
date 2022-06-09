@@ -8,8 +8,10 @@ const eraser = document.getElementById("eraser-btn");
 const resetBtn = document.getElementById("reset-btn");
 const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
+const rainbowBtn = document.getElementById("rainbow-btn");
 //Keeps track of whether or not eraser is on
 let eraserToggle = false;
+let rainbow = false;
 let etchContainer = document.querySelector(".etch-container");
 let currentColor = colorSelector.value;
 let size = sizeSlider.value;
@@ -32,7 +34,7 @@ function eraserToggleOn() {
 	currentColor = "#FFFFFF";
 	eraser.addEventListener("click", eraserToggleOff);
 	eraser.removeEventListener("click", eraserToggleOn);
-	eraser.setAttribute("class", "active-btn")
+	eraser.setAttribute("class", "active-btn");
 	eraserToggle = true;
 }
 //turns off eraser
@@ -40,9 +42,11 @@ function eraserToggleOff() {
 	currentColor = colorSelector.value;
 	eraser.addEventListener("click", eraserToggleOn);
 	eraser.removeEventListener("click", eraserToggleOff);
-	eraser.removeAttribute("class","active-btn")
+	eraser.removeAttribute("class", "active-btn");
 	eraserToggle = false;
 }
+
+rainbowBtn.addEventListener("click", toggleRainbow);
 
 //Adds event listener to reset btn
 resetBtn.addEventListener("click", resetGrid);
@@ -64,6 +68,24 @@ function activate(event) {
 	event.target.style.backgroundColor = currentColor;
 }
 
+function activateRainbow(event) {
+	event.target.style.backgroundColor = generateRGB();
+}
+
+function toggleRainbow() {
+	if (rainbow) {
+		rainbow = false;
+		etchContainer.removeEventListener("mouseover", activateRainbow);
+		etchContainer.addEventListener("mouseover", activate);
+		rainbowBtn.style.backgroundColor = "#EFEFEF"
+	} else {
+		rainbow = true;
+		etchContainer.removeEventListener("mouseover", activate);
+		etchContainer.addEventListener("mouseover", activateRainbow);
+		rainbowBtn.style.backgroundColor = "green"
+	}
+}
+
 //generates grid with dimensions of size by size, and appends to etch-container
 function createGrid() {
 	for (let i = 0; i < size * size; i++) {
@@ -79,6 +101,19 @@ function etchContainerDimensions() {
 	etchContainer.style.gridTemplateRow = `repeat(${size}, 1fr)`;
 	etchContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
 	etchContainer.addEventListener("mouseover", activate);
+	if (rainbow) {
+		etchContainer.removeEventListener("mouseover", activate);
+		etchContainer.addEventListener("mouseover", activateRainbow);
+	}
+}
+
+function generateRGB() {
+	let RGBCode = [];
+	for (let i = 0; i < 3; i++) {
+		let randNum = Math.floor(Math.random() * 255);
+		RGBCode.push(randNum);
+	}
+	return "rgb(" + RGBCode.join(",") + ")";
 }
 
 //deletes old grid and create new one
