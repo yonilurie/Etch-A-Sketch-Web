@@ -16,10 +16,11 @@
 	</head>
 	<body>
 		<h1>Etch-A-Sketch</h1>
-
 		<div class="main-container">
-			<div class="etch-flex-container">
-				<div class="etch-container"></div>
+			<div class="etch-border">
+				<div class="etch-flex-container">
+					<div class="etch-container"></div>
+				</div>
 			</div>
 
 			<div class="options-container">
@@ -27,17 +28,15 @@
 					<input type="color" class="color-input" />
 				</div>
 				<div id="size" class="option">
-					<label for="size-slider" id="size-slider-txt"
-						>Size<span id="size-text"></span
-					></label>
+					<label for="size-slider" id="size-slider-txt">Size</label>
 					<input
 						type="range"
 						name="size-slider"
 						id="size-slider"
-						min="1"
+						min="10"
 						max="100"
 						value="20"
-					/>
+					/><span id="size-text">10</span>
 				</div>
 				<div id="reset" class="option">
 					<button id="reset-btn">Clear canvas</button>

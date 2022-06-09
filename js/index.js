@@ -32,7 +32,7 @@ function eraserToggleOn() {
 	currentColor = "#FFFFFF";
 	eraser.addEventListener("click", eraserToggleOff);
 	eraser.removeEventListener("click", eraserToggleOn);
-	eraser.style.backgroundColor = "pink"
+	eraser.setAttribute("class", "active-btn")
 	eraserToggle = true;
 }
 //turns off eraser
@@ -40,7 +40,7 @@ function eraserToggleOff() {
 	currentColor = colorSelector.value;
 	eraser.addEventListener("click", eraserToggleOn);
 	eraser.removeEventListener("click", eraserToggleOff);
-	eraser.style.backgroundColor = "buttonface"
+	eraser.removeAttribute("class","active-btn")
 	eraserToggle = false;
 }
 
@@ -55,9 +55,9 @@ sizeSlider.addEventListener("change", (event) => {
 });
 
 //Changes innertext of span next to size slider to indicate size
-// sizeSlider.addEventListener("input", (event) => {
-// 	sizeText.innerText = event.target.value;
-// });
+sizeSlider.addEventListener("input", (event) => {
+	sizeText.innerText = event.target.value;
+});
 
 // callback for event listener that sets background color of cells
 function activate(event) {

@@ -4,12 +4,7 @@
 }
 
 body {
-	background-color: rgb(205, 195, 215);
-}
-
-h1 {
-	font-size: 5em;
-	text-align: center;
+	background-color: #f4f4eb;
 }
 
 button {
@@ -17,12 +12,37 @@ button {
 	border: solid 1px black;
 }
 
-button:hover {
-	background-color: #e3e3e3;
+h1 {
+	font-size: 5em;
+	text-align: center;
 }
 
 button:active {
-	background-color: #d5d5d5;
+	background-color: rgba(171, 117, 99, 0.5);
+}
+
+button:hover {
+	border: solid 2px black;
+}
+
+.active-btn {
+	background-color: pink;
+}
+
+.cell {
+	background-color: white;
+	transition: ease-in background-color 50ms;
+}
+
+.etch-border {
+	box-shadow: 2px 2px 4px 4px rgba(166, 166, 141, 0.65);
+}
+
+.etch-container {
+	display: grid;
+	height: 800px;
+	width: 800px;
+	cursor: crosshair;
 }
 
 .main-container {
@@ -31,18 +51,6 @@ button:active {
 	align-items: center;
 	margin: auto;
 	width: fit-content;
-}
-
-.etch-container {
-	display: grid;
-	height: 1000px;
-	width: 1000px;
-	cursor: crosshair;
-}
-
-.cell {
-	background-color: white;
-	transition: ease-in background-color 50ms;
 }
 
 .option {
@@ -70,9 +78,11 @@ button:active {
 #reset-btn,
 #eraser-btn {
 	width: max-content;
+	box-sizing: border-box;
 	height: 40px;
 	font-size: larger;
 	cursor: pointer;
+	width: 160px;
 }
 
 #size {
@@ -91,9 +101,10 @@ button:active {
 	top: 0px;
 }
 
-#size-slider-txt > span {
+#size > span {
 	padding: 8px;
-	display: none;
+	width: 20px;
+	text-align: center;
 }
 
 input[type="color"] {
@@ -107,15 +118,16 @@ input[type="color"] {
 input[type="range"] {
 	-webkit-appearance: none;
 	background: transparent;
-	background-color: gray;
+	background-color: #a6a68d;
 	height: 10px;
 	cursor: pointer;
 	border-radius: 4px;
+	margin-right: 20px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none;
-	background-color: rgb(0, 0, 0);
+	background-color: #a6a68d;
 	border: solid 1px black;
 	width: 20px;
 	height: 20px;
@@ -128,12 +140,13 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 
 @media screen and (max-width: 1600px) {
-	.etch-container {
-		width: 750px;
-		height: 750px;
-	}
 	.all {
 		flex-direction: column;
+	}
+
+	.etch-container {
+		width: 700px;
+		height: 700px;
 	}
 }
 
@@ -142,11 +155,20 @@ input[type="range"]::-webkit-slider-thumb:active {
 		font-size: 40px;
 	}
 
+	.etch-container {
+		width: 550px;
+		height: 550px;
+	}
+
 	.main-container {
 		flex-direction: column;
 	}
 	.option {
 		padding: 10px;
+	}
+
+	.options-container {
+		margin-top: 10px;
 	}
 }
 
