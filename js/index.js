@@ -10,6 +10,7 @@ const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
 const rainbowBtn = document.getElementById("rainbow-btn");
 //Keeps track of whether or not eraser is on
+let rainbowGotToggled = false;
 let eraserToggle = false;
 let rainbow = false;
 let etchContainer = document.querySelector(".etch-container");
@@ -25,7 +26,7 @@ colorSelector.addEventListener("change", (event) => {
 		eraserToggler();
 	}
 	if (rainbow) {
-		toggleRainbow()
+		toggleRainbow();
 	}
 });
 
@@ -36,6 +37,9 @@ eraser.addEventListener("click", eraserToggler);
 function eraserToggler() {
 	if (rainbow) {
 		toggleRainbow();
+		rainbowGotToggled = true;
+		rainbowBtn.style.backgroundImage =
+			"linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)";
 	}
 	//turns eraser on
 	if (!eraserToggle) {
@@ -47,7 +51,17 @@ function eraserToggler() {
 		currentColor = colorSelector.value;
 		eraser.removeAttribute("class", "active-btn");
 		eraserToggle = false;
+		if (rainbowGotToggled) {
+			toggleRainbow();
+			rainbowGotToggled = false;
+		}
 	}
+	console.log({
+		from: "eraser toggler",
+		eraserToggle: `${eraserToggle}`,
+		rainbow: `${rainbow}`,
+		rainbowGotToggled: `${rainbowGotToggled}`,
+	});
 }
 
 rainbowBtn.addEventListener("click", toggleRainbow);
@@ -81,16 +95,25 @@ function toggleRainbow() {
 		eraserToggler();
 	}
 	if (rainbow) {
-		rainbow = false;
 		etchContainer.removeEventListener("mouseover", activateRainbow);
 		etchContainer.addEventListener("mouseover", activate);
+		rainbowBtn.style.backgroundImage = "none";
 		rainbowBtn.style.backgroundColor = "#EFEFEF";
+		rainbow = false;
 	} else {
-		rainbow = true;
 		etchContainer.removeEventListener("mouseover", activate);
 		etchContainer.addEventListener("mouseover", activateRainbow);
-		rainbowBtn.style.backgroundColor = "green";
+		rainbowBtn.style.backgroundImage =
+			"linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)";
+		rainbow = true;
 	}
+
+	console.log({
+		from: "rainbow toggler",
+		eraserToggle: `${eraserToggle}`,
+		rainbow: `${rainbow}`,
+		rainbowGotToggled: `${rainbowGotToggled}`,
+	});
 }
 
 //generates grid with dimensions of size by size, and appends to etch-container
