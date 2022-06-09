@@ -22,28 +22,32 @@ sizeText.innerText = size;
 colorSelector.addEventListener("change", (event) => {
 	currentColor = event.target.value;
 	if (eraserToggle) {
-		eraserToggleOff();
+		eraserToggler();
+	}
+	if (rainbow) {
+		toggleRainbow()
 	}
 });
 
 // adds initial event listener to eraser
-eraser.addEventListener("click", eraserToggleOn);
+eraser.addEventListener("click", eraserToggler);
 
 //Turns on eraser
-function eraserToggleOn() {
-	currentColor = "#FFFFFF";
-	eraser.addEventListener("click", eraserToggleOff);
-	eraser.removeEventListener("click", eraserToggleOn);
-	eraser.setAttribute("class", "active-btn");
-	eraserToggle = true;
-}
-//turns off eraser
-function eraserToggleOff() {
-	currentColor = colorSelector.value;
-	eraser.addEventListener("click", eraserToggleOn);
-	eraser.removeEventListener("click", eraserToggleOff);
-	eraser.removeAttribute("class", "active-btn");
-	eraserToggle = false;
+function eraserToggler() {
+	if (rainbow) {
+		toggleRainbow();
+	}
+	//turns eraser on
+	if (!eraserToggle) {
+		currentColor = "#FFFFFF";
+		eraser.setAttribute("class", "active-btn");
+		eraserToggle = true;
+		//turns eraser off
+	} else if (eraserToggle) {
+		currentColor = colorSelector.value;
+		eraser.removeAttribute("class", "active-btn");
+		eraserToggle = false;
+	}
 }
 
 rainbowBtn.addEventListener("click", toggleRainbow);
@@ -73,16 +77,19 @@ function activateRainbow(event) {
 }
 
 function toggleRainbow() {
+	if (eraserToggle) {
+		eraserToggler();
+	}
 	if (rainbow) {
 		rainbow = false;
 		etchContainer.removeEventListener("mouseover", activateRainbow);
 		etchContainer.addEventListener("mouseover", activate);
-		rainbowBtn.style.backgroundColor = "#EFEFEF"
+		rainbowBtn.style.backgroundColor = "#EFEFEF";
 	} else {
 		rainbow = true;
 		etchContainer.removeEventListener("mouseover", activate);
 		etchContainer.addEventListener("mouseover", activateRainbow);
-		rainbowBtn.style.backgroundColor = "green"
+		rainbowBtn.style.backgroundColor = "green";
 	}
 }
 
@@ -119,7 +126,7 @@ function generateRGB() {
 //deletes old grid and create new one
 function resetGrid() {
 	if (eraserToggle) {
-		eraserToggleOff();
+		eraserToggler();
 	}
 	etchContainer.remove();
 	let newGridContainer = document.createElement("div");

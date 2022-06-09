@@ -115,7 +115,8 @@ a:hover {
 }
 
 #reset-btn,
-#eraser-btn {
+#eraser-btn,
+#rainbow-btn {
 	width: max-content;
 	box-sizing: border-box;
 	height: 40px;
