@@ -1,90 +1,53 @@
-window.onload = () => {
-	//Creates grid and appends to container on window load
+window.addEventListener("DOMContentLoaded", () => {
 	createGrid(size);
-};
+	document.addEventListener("keydown", (e) => {
+		if (e.code === "KeyP") togglePause();
+	});
+});
 
 const colorSelector = document.querySelector("input");
 const eraserBtn = document.getElementById("eraser-btn");
+
+const pause = document.getElementById("pause");
 const rainbowBtn = document.getElementById("rainbow-btn");
 const resetBtn = document.getElementById("reset-btn");
 const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
-//Keeps track of whether or not eraser is on
-let pause = false;
+
+let etchContainer = document.querySelector(".etch-container");
 let eraser = false;
 let rainbow = false;
-let pausedRainbow = false;
-let etchContainer = document.querySelector(".etch-container");
-//Pause button attribute
-// etchContainer.setAttribute("listener", "true");
-//
 let currentColor = colorSelector.value;
 let size = sizeSlider.value;
 sizeText.innerText = size;
 
-document.addEventListener("keydown", (event) => {
-	if (event.code === "KeyP") togglePause();
-});
-
-function togglePause() {
-	switch (rainbow) {
-		case true:
-			pauseRemoveListeners("rainbow", activateRainbow);
-			break;
-
-		default:
-			pauseRemoveListeners("listener", activate);
-			break;
-	}
-}
-
-function pauseRemoveListeners(attribute, cb) {
-	if (etchContainer.getAttribute(`${attribute}`)) {
-		etchContainer.removeEventListener("mouseover", cb);
-		etchContainer.removeAttribute(`${attribute}`, "true");
-	} else {
-		etchContainer.addEventListener("mouseover", cb);
-		etchContainer.setAttribute(`${attribute}`, "true");
-	}
-}
-
-//changes current color whenever the colorpicker value is changed
-//also checks if erases was on while color was changes, in which case the eraser is turned off.
-colorSelector.addEventListener("change", (event) => {
-	currentColor = event.target.value;
-	if (eraser) toggleEraser();
-	if (rainbow) toggleRainbow();
-});
-
-// adds initial event listener to eraser
+colorSelector.addEventListener("change", changeColor);
 eraserBtn.addEventListener("click", toggleEraser);
-
 rainbowBtn.addEventListener("click", toggleRainbow);
-
-//Adds event listener to reset btn
 resetBtn.addEventListener("click", resetGrid);
-
-//adds event listener to the size slider
-//when its value is changed, a new grid is generated
-sizeSlider.addEventListener("change", (event) => {
-	size = event.target.value;
-	resetGrid();
-	// if (rainbow) toggleRainbow()
-	if (eraser) toggleEraser();
+sizeSlider.addEventListener("change", changeGridSize);
+sizeSlider.addEventListener("input", (e) => {
+	sizeText.innerText = e.target.value;
 });
 
-//Changes innertext of span next to size slider to indicate size
-sizeSlider.addEventListener("input", (event) => {
-	sizeText.innerText = event.target.value;
-});
-
-// callback for event listener that sets background color of cells
 function activate(event) {
 	event.target.style.backgroundColor = currentColor;
 }
 
 function activateRainbow(event) {
 	event.target.style.backgroundColor = generateRGB();
+}
+
+function changeColor(e) {
+	currentColor = e.target.value;
+	if (eraser) toggleEraser();
+	if (rainbow) toggleRainbow();
+}
+
+function changeGridSize(e) {
+	size = e.target.value;
+	resetGrid();
+	if (eraser) toggleEraser();
 }
 
 //generates grid with dimensions of size by size, and appends to etch-container
@@ -118,35 +81,55 @@ function generateRGB() {
 	return "rgb(" + RGBCode.join(",") + ")";
 }
 
+function pauseRemoveListeners(attribute, cb) {
+	if (etchContainer.getAttribute(`${attribute}`)) {
+		etchContainer.removeEventListener("mouseover", cb);
+		etchContainer.removeAttribute(`${attribute}`, "true");
+		pause.style.display = "inline";
+	} else {
+		etchContainer.addEventListener("mouseover", cb);
+		etchContainer.setAttribute(`${attribute}`, "true");
+		pause.style.display = "none";
+	}
+}
+
 //deletes old grid and create new one
 function resetGrid() {
 	etchContainer.remove();
 	let newGridContainer = document.createElement("div");
 	newGridContainer.setAttribute("class", "etch-container");
-	document
-		.querySelector(".etch-flex-container")
-		.appendChild(newGridContainer);
+	let flexContainer = document.querySelector(".etch-flex-container");
+	flexContainer.appendChild(newGridContainer);
 	etchContainer = document.querySelector(".etch-container");
 	createGrid();
-	if (eraser) toggleEraser();
 }
 
 //Toggles the eraser
 function toggleEraser() {
-	//turns eraser on
 	if (!eraser) {
 		currentColor = "#FFFFFF";
 		eraserBtn.setAttribute("class", "active-btn");
 		eraser = true;
 		if (rainbow) toggleRainbow();
-
-		//turns eraser off
 	} else if (eraser) {
 		currentColor = colorSelector.value;
 		eraserBtn.removeAttribute("class", "active-btn");
 		eraser = false;
 	}
 }
+
+function togglePause() {
+	switch (rainbow) {
+		case true:
+			pauseRemoveListeners("rainbow", activateRainbow);
+			break;
+
+		default:
+			pauseRemoveListeners("listener", activate);
+			break;
+	}
+}
+
 //toggles the rainbow
 function toggleRainbow() {
 	//this runs if the rainbow is off

@@ -134,9 +134,8 @@ a:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 20px;
 	width: 100%;
-	margin-left: 0px;
+	margin-left: 20px;
 }
 
 .options-container {
@@ -147,6 +146,11 @@ a:hover {
 	box-sizing: border-box;
 	justify-content: center;
 	align-items: center;
+}
+
+#pause {
+	display: none;
+width: fit-content;
 }
 
 #size {
