@@ -5,10 +5,10 @@ window.onload = () => {
 
 const colorSelector = document.querySelector("input");
 const eraserBtn = document.getElementById("eraser-btn");
+const rainbowBtn = document.getElementById("rainbow-btn");
 const resetBtn = document.getElementById("reset-btn");
 const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
-const rainbowBtn = document.getElementById("rainbow-btn");
 //Keeps track of whether or not eraser is on
 
 let eraser = false;
@@ -131,7 +131,7 @@ function toggleRainbow() {
 	if (!rainbow) {
 		etchContainer.removeEventListener("mouseover", activate);
 		etchContainer.addEventListener("mouseover", activateRainbow);
-		rainbowBtn.setAttribute("class","active-rainbow") 
+		rainbowBtn.setAttribute("class", "active-rainbow");
 		rainbow = true;
 		//when turning on the rainbow, the eraser is turned off
 		if (eraser) {
@@ -141,7 +141,7 @@ function toggleRainbow() {
 	} else {
 		etchContainer.removeEventListener("mouseover", activateRainbow);
 		etchContainer.addEventListener("mouseover", activate);
-		rainbowBtn.removeAttribute("class","active-rainbow")
+		rainbowBtn.removeAttribute("class", "active-rainbow");
 		// rainbowBtn.style.backgroundColor = "#EFEFEF";
 		rainbow = false;
 	}
