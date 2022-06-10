@@ -5,12 +5,17 @@
 
 body {
 	background-color: #f4f4eb;
-
 }
 
 button {
 	transition: ease-in-out background-color 50ms;
 	border: solid 1px black;
+	width: max-content;
+	box-sizing: border-box;
+	height: 40px;
+	font-size: larger;
+	cursor: pointer;
+	width: 160px;
 }
 
 button:active {
@@ -23,7 +28,7 @@ button:hover {
 
 footer {
 	background-color: #a6a68d;
-	position:fixed;
+	position: fixed;
 	width: 100%;
 	bottom: 0px;
 	display: flex;
@@ -141,17 +146,6 @@ a:hover {
 	align-items: center;
 }
 
-#reset-btn,
-#eraser-btn,
-#rainbow-btn {
-	width: max-content;
-	box-sizing: border-box;
-	height: 40px;
-	font-size: larger;
-	cursor: pointer;
-	width: 160px;
-}
-
 #size {
 	width: 270px;
 	display: flex;
@@ -251,15 +245,53 @@ input[type="range"]::-webkit-slider-thumb:active {
 
 	footer {
 		/* position: static; */
-		background-color:#a6a68d ;
+		background-color: #a6a68d;
 		bottom: 0;
 		height: 20px;
 	}
 }
 
-
 @media screen and (max-width: 370px) {
+	button {
+		height: 20px;
+		font-size: 10px;
+		width: 90px;
+	}
+	input[type="color"] {
+		border: 0px;
+		background-color: transparent;
+		width: 100px;
+		height: 30px;
+		cursor: pointer;
+	}
+	input[type="range"] {
+		-webkit-appearance: none;
+		background: transparent;
+		background-color: #a6a68d;
+		height: 10px;
+		cursor: pointer;
+		border-radius: 4px;
+		margin-right: 0;
+		width: 100px;
+	}
+
+	input[type="range"]::-webkit-slider-thumb {
+		width: 10px;
+	}
+	#size > span {
+		display: none;
+	}
+	#size-slider-txt {
+		display: none;
+	}
 	#created-by {
 		display: none;
+	}
+}
+
+@media screen and (max-height: 1100px) {
+	footer {
+		position: relative;
+		background-color: transparent;
 	}
 }
