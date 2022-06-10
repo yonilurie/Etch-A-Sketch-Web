@@ -16,6 +16,7 @@ button {
 	font-size: larger;
 	cursor: pointer;
 	width: 160px;
+	box-shadow: 2px 2px 4px 1px rgba(166, 166, 141, 0.65);
 }
 
 button:active {
@@ -176,6 +177,7 @@ input[type="color"] {
 	width: 160px;
 	height: 40px;
 	cursor: pointer;
+	box-shadow: 2px 2px 4px 1px rgba(166, 166, 141, 0.65);
 }
 
 input[type="range"] {
@@ -186,6 +188,7 @@ input[type="range"] {
 	cursor: pointer;
 	border-radius: 4px;
 	margin-right: 20px;
+	box-shadow: 2px 2px 4px 1px rgba(166, 166, 141, 0.65);
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -196,6 +199,7 @@ input[type="range"]::-webkit-slider-thumb {
 	height: 20px;
 	border-radius: 4px;
 	transition: height 50ms ease-in-out;
+	box-shadow: 2px 2px 4px 1px rgba(166, 166, 141, 0.65);
 }
 
 input[type="range"]::-webkit-slider-thumb:active {

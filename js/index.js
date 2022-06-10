@@ -128,6 +128,7 @@ function resetGrid() {
 		.appendChild(newGridContainer);
 	etchContainer = document.querySelector(".etch-container");
 	createGrid();
+	if (eraser) toggleEraser();
 }
 
 //Toggles the eraser
