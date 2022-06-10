@@ -10,7 +10,7 @@ const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
 const rainbowBtn = document.getElementById("rainbow-btn");
 //Keeps track of whether or not eraser is on
-let rainbowGotToggled = false;
+
 let eraser = false;
 let rainbow = false;
 let etchContainer = document.querySelector(".etch-container");
@@ -23,7 +23,7 @@ sizeText.innerText = size;
 colorSelector.addEventListener("change", (event) => {
 	currentColor = event.target.value;
 	if (eraser) {
-		eraserToggler();
+		toggleEraser();
 	}
 	if (rainbow) {
 		toggleRainbow();
@@ -31,7 +31,7 @@ colorSelector.addEventListener("change", (event) => {
 });
 
 // adds initial event listener to eraser
-eraserBtn.addEventListener("click", eraserToggler);
+eraserBtn.addEventListener("click", toggleEraser);
 
 rainbowBtn.addEventListener("click", toggleRainbow);
 
@@ -43,6 +43,12 @@ resetBtn.addEventListener("click", resetGrid);
 sizeSlider.addEventListener("change", (event) => {
 	size = event.target.value;
 	resetGrid();
+	// if (rainbow) {
+	// 	toggleRainbow()
+	// }
+	if (eraser) {
+		toggleEraser();
+	}
 });
 
 //Changes innertext of span next to size slider to indicate size
@@ -57,66 +63,6 @@ function activate(event) {
 
 function activateRainbow(event) {
 	event.target.style.backgroundColor = generateRGB();
-}
-
-//Turns on eraser
-function eraserToggler() {
-	if (rainbow) {
-		toggleRainbow();
-		rainbowGotToggled = true;
-		rainbowBtn.style.backgroundImage =
-			"linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)";
-	}
-	//turns eraser on
-	if (!eraser) {
-		currentColor = "#FFFFFF";
-		eraserBtn.setAttribute("class", "active-btn");
-		eraser = true;
-		//turns eraser off
-	} else if (eraser) {
-		currentColor = colorSelector.value;
-		eraserBtn.removeAttribute("class", "active-btn");
-
-		//MOVING LINE 81 UNDER lINE 85 CAUSES BUG WHEN CLICKING RAINBOW ERASER RAINBOW
-		//RAINBOW REM
-
-		if (rainbowGotToggled) {
-			toggleRainbow();
-			rainbowGotToggled = false;
-		}
-		eraser = false;
-	}
-	console.log({
-		from: "eraser toggler",
-		eraserToggle: `${eraser}`,
-		rainbow: `${rainbow}`,
-		rainbowGotToggled: `${rainbowGotToggled}`,
-	});
-}
-
-function toggleRainbow() {
-	if (eraser) {
-		eraserToggler();
-	}
-	if (rainbow) {
-		etchContainer.removeEventListener("mouseover", activateRainbow);
-		etchContainer.addEventListener("mouseover", activate);
-		rainbowBtn.style.backgroundImage = "none";
-		rainbowBtn.style.backgroundColor = "#EFEFEF";
-		rainbow = false;
-	} else {
-		etchContainer.removeEventListener("mouseover", activate);
-		etchContainer.addEventListener("mouseover", activateRainbow);
-		rainbowBtn.style.backgroundImage =
-			"linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)";
-		rainbow = true;
-	}
-	console.log({
-		from: "rainbow toggler",
-		eraserToggle: `${eraser}`,
-		rainbow: `${rainbow}`,
-		rainbowGotToggled: `${rainbowGotToggled}`,
-	});
 }
 
 //generates grid with dimensions of size by size, and appends to etch-container
@@ -140,6 +86,7 @@ function etchContainerDimensions() {
 	}
 }
 
+//Creates a random rgb value for the rainbow color option
 function generateRGB() {
 	let RGBCode = [];
 	for (let i = 0; i < 3; i++) {
@@ -151,9 +98,6 @@ function generateRGB() {
 
 //deletes old grid and create new one
 function resetGrid() {
-	if (eraser) {
-		eraserToggler();
-	}
 	etchContainer.remove();
 	let newGridContainer = document.createElement("div");
 	newGridContainer.setAttribute("class", "etch-container");
@@ -163,10 +107,42 @@ function resetGrid() {
 	etchContainer = document.querySelector(".etch-container");
 	createGrid();
 }
-// Debugging code
-// console.log({
-// 	from: "eraser toggler",
-// 	eraserToggle: `${eraser}`,
-// 	rainbow: `${rainbow}`,
-// 	rainbowGotToggled: `${rainbowGotToggled}`,
-// });
+
+//Toggles the eraser
+function toggleEraser() {
+	//turns eraser on
+	if (!eraser) {
+		currentColor = "#FFFFFF";
+		eraserBtn.setAttribute("class", "active-btn");
+		eraser = true;
+		if (rainbow) {
+			toggleRainbow();
+		}
+		//turns eraser off
+	} else if (eraser) {
+		currentColor = colorSelector.value;
+		eraserBtn.removeAttribute("class", "active-btn");
+		eraser = false;
+	}
+}
+//toggles the rainbow
+function toggleRainbow() {
+	//this runs if the rainbow is off
+	if (!rainbow) {
+		etchContainer.removeEventListener("mouseover", activate);
+		etchContainer.addEventListener("mouseover", activateRainbow);
+		rainbowBtn.setAttribute("class","active-rainbow") 
+		rainbow = true;
+		//when turning on the rainbow, the eraser is turned off
+		if (eraser) {
+			toggleEraser();
+		}
+		//this runs if the rainbow is on
+	} else {
+		etchContainer.removeEventListener("mouseover", activateRainbow);
+		etchContainer.addEventListener("mouseover", activate);
+		rainbowBtn.removeAttribute("class","active-rainbow")
+		// rainbowBtn.style.backgroundColor = "#EFEFEF";
+		rainbow = false;
+	}
+}
