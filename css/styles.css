@@ -5,6 +5,7 @@
 
 body {
 	background-color: #f4f4eb;
+
 }
 
 button {
@@ -22,7 +23,7 @@ button:hover {
 
 footer {
 	background-color: #a6a68d;
-	position: absolute;
+	position:fixed;
 	width: 100%;
 	bottom: 0px;
 	display: flex;
@@ -249,8 +250,16 @@ input[type="range"]::-webkit-slider-thumb:active {
 	}
 
 	footer {
-		position: absolute;
+		/* position: static; */
+		background-color:#a6a68d ;
 		bottom: 0;
 		height: 20px;
+	}
+}
+
+
+@media screen and (max-width: 370px) {
+	#created-by {
+		display: none;
 	}
 }

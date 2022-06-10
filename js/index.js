@@ -10,13 +10,34 @@ const resetBtn = document.getElementById("reset-btn");
 const sizeSlider = document.getElementById("size-slider");
 const sizeText = document.getElementById("size-text");
 //Keeps track of whether or not eraser is on
-
+let pause = false;
 let eraser = false;
 let rainbow = false;
 let etchContainer = document.querySelector(".etch-container");
+//
+etchContainer.setAttribute('listener', 'true')
+//
 let currentColor = colorSelector.value;
 let size = sizeSlider.value;
 sizeText.innerText = size;
+
+document.addEventListener("keydown", (event) => {
+
+	if (event.code === "KeyP") {
+			console.log(event.code);
+		toggleListener();
+	}
+});
+
+function toggleListener() {
+	if (etchContainer.getAttribute("listener")) {
+		etchContainer.removeEventListener("mouseover", activate);
+		etchContainer.removeAttribute('listener', 'true')
+	} else {
+		etchContainer.addEventListener("mouseover", activate);
+		etchContainer.setAttribute('listener', 'true')
+	}
+}
 
 //changes current color whenever the colorpicker value is changed
 //also checks if erases was on while color was changes, in which case the eraser is turned off.
