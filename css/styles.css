@@ -70,7 +70,6 @@ a:hover {
 	}
 }
 
-
 .active-btn {
 	background-color: pink;
 }
@@ -241,12 +240,17 @@ input[type="range"]::-webkit-slider-thumb:active {
 
 @media screen and (max-width: 800px) {
 	.etch-container {
-		width: 450px;
-		height: 450px;
+		width: 350px;
+		height: 350px;
 	}
 
 	.option {
 		padding: 5px;
 	}
-}
 
+	footer {
+		position: absolute;
+		bottom: 0;
+		height: 20px;
+	}
+}
