@@ -11,3 +11,5 @@ clear canvas will clear the canvas so you can start fresh
 the eraser will erase cell by cell for more accurate retouching
 
 the rainbow button will turn on rainbow mode, this will generate random colors for you to make your drawing pop
+
+HINT: the 'p' key will pause your cursor from changing drawing
