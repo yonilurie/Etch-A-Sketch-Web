@@ -90,11 +90,11 @@ function pauseRemoveListeners(attribute, cb) {
 	if (etchContainer.getAttribute(`${attribute}`)) {
 		etchContainer.removeEventListener("mouseover", cb);
 		etchContainer.removeAttribute(`${attribute}`, "true");
-		pause.style.display = "inline";
+		pause.style.opacity = "100%"
 	} else {
 		etchContainer.addEventListener("mouseover", cb);
 		etchContainer.setAttribute(`${attribute}`, "true");
-		pause.style.display = "none";
+		pause.style.opacity = "30%"
 	}
 }
 
