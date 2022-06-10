@@ -15,27 +15,26 @@ let eraser = false;
 let rainbow = false;
 let etchContainer = document.querySelector(".etch-container");
 //
-etchContainer.setAttribute('listener', 'true')
+etchContainer.setAttribute("listener", "true");
 //
 let currentColor = colorSelector.value;
 let size = sizeSlider.value;
 sizeText.innerText = size;
 
 document.addEventListener("keydown", (event) => {
-
 	if (event.code === "KeyP") {
-			console.log(event.code);
-		toggleListener();
+		console.log(event.code);
+		togglePause();
 	}
 });
 
-function toggleListener() {
+function togglePause() {
 	if (etchContainer.getAttribute("listener")) {
 		etchContainer.removeEventListener("mouseover", activate);
-		etchContainer.removeAttribute('listener', 'true')
+		etchContainer.removeAttribute("listener", "true");
 	} else {
 		etchContainer.addEventListener("mouseover", activate);
-		etchContainer.setAttribute('listener', 'true')
+		etchContainer.setAttribute("listener", "true");
 	}
 }
 
