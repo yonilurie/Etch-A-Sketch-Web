@@ -29,24 +29,22 @@ document.addEventListener("keydown", (event) => {
 function togglePause() {
 	switch (rainbow) {
 		case true:
-			if (etchContainer.getAttribute("rainbow")) {
-				etchContainer.removeEventListener("mouseover", activateRainbow);
-				etchContainer.removeAttribute("rainbow", "true");
-			} else {
-				etchContainer.addEventListener("mouseover", activateRainbow);
-				etchContainer.setAttribute("rainbow", "true");
-			}
+			pauseRemoveListeners("rainbow", activateRainbow);
 			break;
 
 		default:
-			if (etchContainer.getAttribute("listener")) {
-				etchContainer.removeEventListener("mouseover", activate);
-				etchContainer.removeAttribute("listener", "true");
-			} else {
-				etchContainer.addEventListener("mouseover", activate);
-				etchContainer.setAttribute("listener", "true");
-			}
+			pauseRemoveListeners("listener", activate);
 			break;
+	}
+}
+
+function pauseRemoveListeners(attribute, cb) {
+	if (etchContainer.getAttribute(`${attribute}`)) {
+		etchContainer.removeEventListener("mouseover", cb);
+		etchContainer.removeAttribute(`${attribute}`, "true");
+	} else {
+		etchContainer.addEventListener("mouseover", cb);
+		etchContainer.setAttribute(`${attribute}`, "true");
 	}
 }
 

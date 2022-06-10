@@ -41,6 +41,16 @@ footer {
 h1 {
 	font-size: 5em;
 	text-align: center;
+	width: fit-content;
+	margin: 40px auto;
+}
+
+h1 > span {
+	display: none;
+}
+
+h1:hover {
+	color: #1ddde8;
 }
 
 a:hover {
