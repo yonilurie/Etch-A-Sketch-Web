@@ -13,28 +13,40 @@ const sizeText = document.getElementById("size-text");
 let pause = false;
 let eraser = false;
 let rainbow = false;
+let pausedRainbow = false;
 let etchContainer = document.querySelector(".etch-container");
-//
-etchContainer.setAttribute("listener", "true");
+//Pause button attribute
+// etchContainer.setAttribute("listener", "true");
 //
 let currentColor = colorSelector.value;
 let size = sizeSlider.value;
 sizeText.innerText = size;
 
 document.addEventListener("keydown", (event) => {
-	if (event.code === "KeyP") {
-		console.log(event.code);
-		togglePause();
-	}
+	if (event.code === "KeyP") togglePause();
 });
 
 function togglePause() {
-	if (etchContainer.getAttribute("listener")) {
-		etchContainer.removeEventListener("mouseover", activate);
-		etchContainer.removeAttribute("listener", "true");
-	} else {
-		etchContainer.addEventListener("mouseover", activate);
-		etchContainer.setAttribute("listener", "true");
+	switch (rainbow) {
+		case true:
+			if (etchContainer.getAttribute("rainbow")) {
+				etchContainer.removeEventListener("mouseover", activateRainbow);
+				etchContainer.removeAttribute("rainbow", "true");
+			} else {
+				etchContainer.addEventListener("mouseover", activateRainbow);
+				etchContainer.setAttribute("rainbow", "true");
+			}
+			break;
+
+		default:
+			if (etchContainer.getAttribute("listener")) {
+				etchContainer.removeEventListener("mouseover", activate);
+				etchContainer.removeAttribute("listener", "true");
+			} else {
+				etchContainer.addEventListener("mouseover", activate);
+				etchContainer.setAttribute("listener", "true");
+			}
+			break;
 	}
 }
 
@@ -42,12 +54,8 @@ function togglePause() {
 //also checks if erases was on while color was changes, in which case the eraser is turned off.
 colorSelector.addEventListener("change", (event) => {
 	currentColor = event.target.value;
-	if (eraser) {
-		toggleEraser();
-	}
-	if (rainbow) {
-		toggleRainbow();
-	}
+	if (eraser) toggleEraser();
+	if (rainbow) toggleRainbow();
 });
 
 // adds initial event listener to eraser
@@ -63,12 +71,8 @@ resetBtn.addEventListener("click", resetGrid);
 sizeSlider.addEventListener("change", (event) => {
 	size = event.target.value;
 	resetGrid();
-	// if (rainbow) {
-	// 	toggleRainbow()
-	// }
-	if (eraser) {
-		toggleEraser();
-	}
+	// if (rainbow) toggleRainbow()
+	if (eraser) toggleEraser();
 });
 
 //Changes innertext of span next to size slider to indicate size
@@ -135,9 +139,8 @@ function toggleEraser() {
 		currentColor = "#FFFFFF";
 		eraserBtn.setAttribute("class", "active-btn");
 		eraser = true;
-		if (rainbow) {
-			toggleRainbow();
-		}
+		if (rainbow) toggleRainbow();
+
 		//turns eraser off
 	} else if (eraser) {
 		currentColor = colorSelector.value;
@@ -153,16 +156,15 @@ function toggleRainbow() {
 		etchContainer.addEventListener("mouseover", activateRainbow);
 		rainbowBtn.setAttribute("class", "active-rainbow");
 		rainbow = true;
+		etchContainer.setAttribute("rainbow", "true");
 		//when turning on the rainbow, the eraser is turned off
-		if (eraser) {
-			toggleEraser();
-		}
+		if (eraser) toggleEraser();
 		//this runs if the rainbow is on
 	} else {
 		etchContainer.removeEventListener("mouseover", activateRainbow);
 		etchContainer.addEventListener("mouseover", activate);
 		rainbowBtn.removeAttribute("class", "active-rainbow");
-		// rainbowBtn.style.backgroundColor = "#EFEFEF";
 		rainbow = false;
+		etchContainer.removeAttribute("rainbow", "true");
 	}
 }
