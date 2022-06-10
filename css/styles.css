@@ -148,9 +148,14 @@ a:hover {
 	align-items: center;
 }
 
+#optionsAndPause {
+	display: flex;
+}
+
 #pause {
 	display: none;
-width: fit-content;
+	width: fit-content;
+	padding: 10px;
 }
 
 #size {
