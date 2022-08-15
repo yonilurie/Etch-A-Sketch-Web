@@ -1,5 +1,6 @@
 # etch-a-sketch-2.0
-View here > https://yonilurie.github.io/etch-a-sketch-2.0/ <
+[Try out Here!](https://yonilurie.github.io/etch-a-sketch-2.0/ )
+
 This etch-a-sketch webapp will allow you to draw anything you like!
 
 Pick a color with the color chooser 
