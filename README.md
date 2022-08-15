@@ -1,5 +1,5 @@
-# etch-a-sketch-2.0
-[Try out Here!](https://yonilurie.github.io/etch-a-sketch-2.0/ )
+# Etch-A-Sketch-Web
+[Try out Here!](https://yonilurie.github.io/Etch-A-Sketch-Web/ )
 
 This etch-a-sketch webapp will allow you to draw anything you like!
 
