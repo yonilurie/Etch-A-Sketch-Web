@@ -3,10 +3,6 @@
 	font-family: "Roboto Mono", monospace;
 }
 
-body {
-	background-color: #f4f4eb;
-}
-
 button {
 	transition: ease-in-out background-color 50ms;
 	border: solid 1px black;
@@ -43,7 +39,7 @@ h1 {
 	font-size: 5em;
 	text-align: center;
 	width: fit-content;
-	margin: 40px auto;
+	margin: 20px auto;
 }
 
 a:hover {
@@ -64,7 +60,7 @@ a:hover {
 		#dd00f3
 	);
 	background-size: 1800% 1800%;
-	animation: rainbow 40s ease infinite;
+	animation: rainbow 20s ease infinite;
 }
 
 @keyframes rainbow {
@@ -85,7 +81,7 @@ a:hover {
 
 .cell {
 	background-color: white;
-	transition: ease-in background-color 50ms;
+	transition: ease-in background-color 75ms;
 }
 
 .etch-border {
@@ -94,8 +90,8 @@ a:hover {
 
 .etch-container {
 	display: grid;
-	height: 800px;
-	width: 800px;
+	height: 500px;
+	width: 500px;
 	cursor: crosshair;
 }
 
@@ -146,6 +142,7 @@ a:hover {
 	box-sizing: border-box;
 	justify-content: center;
 	align-items: center;
+	gap: 5px	;
 }
 
 #optionsAndPause {
@@ -221,8 +218,8 @@ input[type="range"]::-webkit-slider-thumb:active {
 	}
 
 	.etch-container {
-		width: 700px;
-		height: 700px;
+		width: 500px;
+		height: 500px;
 	}
 }
 
@@ -232,8 +229,8 @@ input[type="range"]::-webkit-slider-thumb:active {
 	}
 
 	.etch-container {
-		width: 550px;
-		height: 550px;
+		width: 350px;
+		height: 350px;
 	}
 
 	.main-container {
@@ -249,18 +246,11 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 
 @media screen and (max-width: 800px) {
-	.etch-container {
-		width: 350px;
-		height: 350px;
-	}
-
 	.option {
 		padding: 5px;
 	}
 
 	footer {
-		/* position: static; */
-		background-color: #a6a68d;
 		bottom: 0;
 		height: 20px;
 	}
